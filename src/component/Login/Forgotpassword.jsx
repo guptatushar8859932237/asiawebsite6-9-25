@@ -54,7 +54,9 @@ export default function LoginForm() {
         email: data.email,
       })
       .then((response) => {
-        localStorage.setItem("token", response.data.token);
+        console.log(response.data.token);
+        JSON.stringify(localStorage.setItem("token", response.data.token));
+        // JSON.stringify(localStorage.setItem("token", response.data.token));
         toast.success(response.data.msg);
       })
       .catch((error) => {

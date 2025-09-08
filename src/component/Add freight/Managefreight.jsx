@@ -403,31 +403,49 @@ export default function Managefreight() {
     setInputvali({ ...inputvali, [name]: value });
   };
 
-  const postapi = () => {
-    const datapost = {
-      user_id: clienduidi.id,
-      origin: inputvali.origin,
-      destination: inputvali.destination,
-      startDate: inputvali.startDate,
-      endDate: inputvali.endDate,
-      freightType: inputvali.freight,
-      freightSpeed: inputvali.type,
-    };
-    console.log(datapost);
-    axios
-      .post(`${process.env.REACT_APP_BASE_URL}client-freights`, datapost)
-      .then((response) => {
-        if (response.data.success === true) {
-          setData(response.data.data);
-          handleUpdateClose5();
-          console.log(response.data.data);
-        }
-        console.log(response.data.data);
-      })
-      .catch((error) => {
-        console.log(error.response.data);
-      });
+ const postapi = () => {
+  // convert to Date objects
+  const start = new Date(inputvali.startDate);
+  const end = new Date(inputvali.endDate);
+
+  // validation
+  if (!inputvali.startDate || !inputvali.endDate) {
+    toast.error("Please select both Start Date and End Date.");
+    return;
+  }
+
+  if (start >= end) {
+    toast.error("Start Date must be smaller than End Date.");
+    return;
+  }
+
+  const datapost = {
+    user_id: clienduidi.id,
+    origin: inputvali.origin,
+    destination: inputvali.destination,
+    startDate: inputvali.startDate,
+    endDate: inputvali.endDate,
+    freightType: inputvali.freight,
+    freightSpeed: inputvali.type,
   };
+
+  console.log(datapost);
+
+  axios
+    .post(`${process.env.REACT_APP_BASE_URL}client-freights`, datapost)
+    .then((response) => {
+      if (response.data.success === true) {
+        setData(response.data.data);
+        handleUpdateClose5();
+        console.log(response.data.data);
+      }
+      console.log(response.data.data);
+    })
+    .catch((error) => {
+      console.log(error.response?.data || error.message);
+    });
+};
+
   return (
     <div>
       <>

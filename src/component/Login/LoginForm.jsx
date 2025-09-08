@@ -34,7 +34,7 @@ export default function LoginForm() {
     }
     if (!value.password) {
       errors.password = "Password is required";
-      toast.error("Password is required");
+      // toast.error("Password is required");
     }
     setError(errors);
     return Object.keys(errors).length === 0;

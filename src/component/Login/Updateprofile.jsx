@@ -67,6 +67,7 @@ export default function UpdateProfile() {
         }
         if (!value.cellphone) {
             error.cellphone = "Cellphone is Required"
+            toast.error("Cellphone is Required")
         } else {
             apihit()
         }
@@ -208,11 +209,11 @@ export default function UpdateProfile() {
                                     </div>
                                     <div className="row">
                                         <div className="col">
-                                            <label htmlFor="">Cellphone</label>
+                                            <label htmlFor="">Cellphone <span className='text-danger'>*</span></label>
                                             <input type="text" name='cellphone' value={userData?.cellphone} onKeyPress={handlekeypreaa} maxLength={13} onChange={handleChange} className="form-control" />
                                         </div>
                                         <div className="col">
-                                            <label htmlFor="">Telephone</label>
+                                            <label htmlFor="">Telephone <span className='text-danger'>*</span></label>
                                             <input type="text" name='telephone' value={userData?.telephone} onKeyPress={handlekeypreaa} maxLength={13} onChange={handleChange} className="form-control" />
                                         </div>
                                     </div>

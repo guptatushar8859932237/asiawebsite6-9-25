@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { MyContext } from "../MyContext";
 import image2 from "../assestss/logo.png";
-
+import imagelogouser from "../assestss/logoasia.png"
 export default function Topbar() {
   const { text, setText } = useContext(MyContext);
   const [userData, setUserData] = useState({});
@@ -53,6 +53,7 @@ export default function Topbar() {
         client_id: user?.id,
       })
       .then((response) => {
+        console.log(  response?.data?.data);
         setUserData(response?.data?.data);
       })
       .catch((error) => {
@@ -176,18 +177,32 @@ export default function Topbar() {
                         aria-expanded="false"
                         style={{ cursor: "pointer" }}
                       >
-                        {userData ? (
+                        {/* {userData.profile=="" ? (
                           // <img src={imagelogo} alt="dfsdfsf" />
-                          <img
-                            src={`${process.env.REACT_APP_BASE_URL_image}${userData?.profile}`}
+                            <img
+                            src={`${process.env.REACT_APP_BASE_URL_image}${imagelogouser}`}
                             alt="dfsdfsf"
                           />
+                        
                         ) : (
                           <img
-                            src={`${process.env.REACT_APP_BASE_URL_image}${text}`}
-                            alt="dfsdfsf"
+                            src={`${process.env.REACT_APP_BASE_URL_image}${userData?.profile}`}
+                            alt="df"
                           />
-                        )}
+                        )} */}
+                     
+                     {userData?.profile ? (
+  <img
+    src={`${process.env.REACT_APP_BASE_URL_image}${userData?.profile}`}
+    alt="profile"
+  />
+) : (
+  <img
+    src={imagelogouser}
+    alt="default-profile"
+  />
+)}
+                     
                       </a>
                       <ul className="dropdown-menu menu_item profile_view">
                         <li>

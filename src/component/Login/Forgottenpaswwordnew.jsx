@@ -7,6 +7,7 @@ import { useParams } from 'react-router-dom';
 
 export default function Forgottenpaswwordnew() {
   const { token } = useParams();
+  console.log(token)
   const handletop = () => {
     window.scrollTo(0, 0)
   }
@@ -41,22 +42,43 @@ export default function Forgottenpaswwordnew() {
     handlevalidate(data)
   }
  
-  const apihit = () => {
-    const datauswer = {
-      newPassword: data.newPassword,
-      confirmPassword: data.confirmPassword
-    };
+  const token1 = JSON.parse(localStorage.getItem("token"));
+  // const apihit = () => {
+  //   const datauswer = {
+  //     newPassword: data.newPassword,
+  //     confirmPassword: data.confirmPassword
+  //   };
     
-    const token = localStorage.getItem("token");
-    // Concatenate the token to the URL string
-    axios.post(`${process.env.REACT_APP_BASE_URL}user-reset-password?token=${token}`, datauswer)
-      .then((response) => {
-        toast.success(response.data.msg);
-      })
-      .catch((error) => {
-        toast.error(error.response.data.msg);
-      });
+  //   axios.post(`${process.env.REACT_APP_BASE_URL}user-reset-password?token=${token1}`, datauswer)
+  //     .then((response) => {
+  //       toast.success(response.data.msg);
+  //     })
+  //     .catch((error) => {
+  //       toast.error(error.response.data.msg);
+  //     });
+  // };
+  
+  const apihit = () => {
+  const datauswer = {
+    newPassword: data.newPassword,
+    confirmPassword: data.confirmPassword,
   };
+
+  axios.post(
+    `${process.env.REACT_APP_BASE_URL}user-reset-password?token=${token1}`,
+    datauswer
+  )
+  .then((response) => {
+    toast.success(response.data.msg);
+    navigate("/login"); // redirect after reset success
+  })
+  .catch((error) => {
+    toast.error(error.response.data.msg);
+  });
+};
+
+  
+  
   return (
     <div>
       <section className="loginSec">
