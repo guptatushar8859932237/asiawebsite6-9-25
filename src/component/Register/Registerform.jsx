@@ -111,7 +111,7 @@
 // // //                         <form onSubmit={handleSubmit}>
 // // //                             <div className="row mt-3">
 // // //                                 <div className="col-lg-4">
-// // //                                     <label htmlFor="clientName">Client Name (Company / Individual)* :</label>
+// // //                                     <label htmlFor="clientName">Client Name (Company / Individual)<span className="text-danger">*</span> :</label>
 // // //                                     <input type="text" id="clientName" name="client_name" onChange={handleChange} required />
 // // //                                     <p className='text-danger'>{error.client_name}</p>
 // // //                                 </div>
@@ -1110,7 +1110,7 @@ function RegisterForm() {
                   <form onSubmit={handleSubmit}>
                     <div className="row g-3">
                       <div className="col-md-6">
-                        <label className="form-label">Client Name*</label>
+                        <label className="form-label">Client Name<span className="text-danger">*</span></label>
                         <input
                           type="text"
                           name="client_name"
@@ -1122,7 +1122,7 @@ function RegisterForm() {
                         </small>
                       </div>
                       <div className="col-md-6">
-                        <label className="form-label">Contact Person*</label>
+                        <label className="form-label">Contact Person<span className="text-danger">*</span></label>
                         <input
                           type="text"
                           name="contact_person"
@@ -1134,7 +1134,7 @@ function RegisterForm() {
                         </small>
                       </div>
                       <div className="col-md-6">
-                        <label className="form-label">Cellphone*</label>
+                        <label className="form-label">Cellphone<span className="text-danger">*</span></label>
                         <input
                           type="tel"
                           name="cellphone"
@@ -1157,7 +1157,7 @@ function RegisterForm() {
                         />
                       </div>
                       <div className="col-md-6">
-                        <label className="form-label">Email*</label>
+                        <label className="form-label">Email<span className="text-danger">*</span></label>
                         <input
                           type="email"
                           name="email"
@@ -1167,7 +1167,7 @@ function RegisterForm() {
                         <small className="text-danger">{error.email}</small>
                       </div>
                       <div className="col-md-6">
-                        <label className="form-label">Password*</label>
+                        <label className="form-label">Password<span className="text-danger">*</span></label>
                         <input
                           type="password"
                           name="password"
@@ -1195,7 +1195,7 @@ function RegisterForm() {
                         />
                       </div>
                       <div className="col-md-6">
-                        <label className="form-label">City*</label>
+                        <label className="form-label">City<span className="text-danger">*</span></label>
                         <input
                           type="text"
                           name="city"
@@ -1205,7 +1205,7 @@ function RegisterForm() {
                         <small className="text-danger">{error.city}</small>
                       </div>
                       <div className="col-md-6">
-                        <label className="form-label">Province*</label>
+                        <label className="form-label">Province<span className="text-danger">*</span></label>
                         <input
                           type="text"
                           name="province"
@@ -1215,7 +1215,7 @@ function RegisterForm() {
                         <small className="text-danger">{error.province}</small>
                       </div>
                       <div className="col-md-6">
-                        <label className="form-label">Country*</label>
+                        <label className="form-label">Country<span className="text-danger">*</span></label>
                         <select
                           name="country"
                           className="form-select"

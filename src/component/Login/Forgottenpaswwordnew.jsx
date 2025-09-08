@@ -7,7 +7,6 @@ import { useParams } from 'react-router-dom';
 
 export default function Forgottenpaswwordnew() {
   const { token } = useParams();
-  console.log(token)
   const handletop = () => {
     window.scrollTo(0, 0)
   }
@@ -42,43 +41,28 @@ export default function Forgottenpaswwordnew() {
     handlevalidate(data)
   }
  
-  const token1 = JSON.parse(localStorage.getItem("token"));
-  // const apihit = () => {
-  //   const datauswer = {
-  //     newPassword: data.newPassword,
-  //     confirmPassword: data.confirmPassword
-  //   };
-    
-  //   axios.post(`${process.env.REACT_APP_BASE_URL}user-reset-password?token=${token1}`, datauswer)
-  //     .then((response) => {
-  //       toast.success(response.data.msg);
-  //     })
-  //     .catch((error) => {
-  //       toast.error(error.response.data.msg);
-  //     });
-  // };
-  
-  const apihit = () => {
+const apihit = () => {
   const datauswer = {
     newPassword: data.newPassword,
     confirmPassword: data.confirmPassword,
   };
-
-  axios.post(
-    `${process.env.REACT_APP_BASE_URL}user-reset-password?token=${token1}`,
-    datauswer
-  )
-  .then((response) => {
-    toast.success(response.data.msg);
-    navigate("/login"); // redirect after reset success
-  })
-  .catch((error) => {
-    toast.error(error.response.data.msg);
-  });
+  const token = localStorage.getItem("token");
+  axios
+    .post(`${process.env.REACT_APP_BASE_URL}user-reset-password?token=${token}`, datauswer)
+    .then((response) => {
+      // Show success toast
+      toast.success(response.data.msg);
+      // Remove token from localStorage
+      localStorage.removeItem("token");
+      // Redirect to external login page
+      window.location.href = "https://ship.asiadirect.africa/login";
+    })
+    .catch((error) => {
+      // Show error toast
+      toast.error(error.response?.data?.msg || "Something went wrong");
+    });
 };
 
-  
-  
   return (
     <div>
       <section className="loginSec">
