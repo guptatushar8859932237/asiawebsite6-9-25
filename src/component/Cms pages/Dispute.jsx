@@ -83,7 +83,7 @@
 //                   <form method="post">
 //                     <div class="row">
 //                       <div class="col-md-6">
-//                         <label class="div_label">Name*</label>
+//                         <label class="div_label">Name<span class="redStar">*</span></label>
 //                         <input
 //                           type="text"
 //                           class="box1 form-control "
@@ -94,7 +94,7 @@
 //                         />
 //                       </div>
 //                       <div class="col-md-6">
-//                         <label class="div_label">Freight Number.*</label>
+//                         <label class="div_label">Freight Number.<span class="redStar">*</span></label>
 //                         <input
 //                           type="text"
 //                           class="box1 form-control "
@@ -107,15 +107,15 @@
 //                     </div>
 //                     <div className="row">
 //                       <div className="col-md-6">
-//                         <label class="div_label">Nature of Heading*</label>
-//                         {/* <input
+//                         <label class="div_label">Nature of Heading<span class="redStar">*</span></label>
+//                         {/<span class="redStar">*</span> <input
 //                           type="email"
 //                           name="email"
 //                           class="box1 form-control"
 //                           placeholder="Email"
 //                           onChange={handlechnage}
 //                           required
-//                         /> */}
+//                         /> <span class="redStar">*</span>/}
 //                         <select onChange={handlechnage} name="email" class="box1 form-control">
 //                           <option>Select...</option>
 //                           <option value="Invoicing">Invoicing</option>
@@ -124,7 +124,7 @@
 //                         </select>
 //                       </div>
 //                       <div className="col-md-6">
-//                         <label class="div_label">Subject*</label>
+//                         <label class="div_label">Subject<span class="redStar">*</span></label>
 //                         <input
 //                           type="text"
 //                           name="subject"
@@ -137,7 +137,7 @@
 //                     </div>
 //                     <div className="row">
 //                       <div className="col-md-12">
-//                         <label class="div_label">Message*</label>
+//                         <label class="div_label">Message<span class="redStar">*</span></label>
 //                         <textarea
 //                           class="box2 form-control "
 //                           name="message"
@@ -303,7 +303,7 @@ console.log(response.data)
       <section>
         <div className="container my-5">
           <div className="row justify-content-center mt-5 align-items-center">
-            <div className="col-md-9">
+            <div className="col-md-12">
               <div className="div1 mb-4 d-flex justify-content-between">
                 <h2 className="heading_1">  {showForm ? "Get in Touch" : "View Dispute"}</h2>
                 <div>
@@ -317,7 +317,7 @@ console.log(response.data)
                 <form method="post">
                   <div className="row">
                     <div className="col-md-6">
-                      <label className="div_label">Name*</label>
+                      <label className="div_label">Name<span class="redStar">*</span></label>
                       <input
                         type="text"
                         className="box1 form-control "
@@ -328,7 +328,7 @@ console.log(response.data)
                       />
                     </div>
                     <div className="col-md-6">
-                      <label className="div_label">Freight Number.*</label>
+                      <label className="div_label">Freight Number<span class="redStar">*</span></label>
                       <input
                         type="text"
                         className="box1 form-control "
@@ -341,7 +341,7 @@ console.log(response.data)
                   </div>
                   <div className="row">
                     <div className="col-md-6">
-                      <label className="div_label">Nature of Heading*</label>
+                      <label className="div_label">Nature of Heading<span class="redStar">*</span></label>
                       <select
                         onChange={handlechnage}
                         name="email"
@@ -354,7 +354,7 @@ console.log(response.data)
                       </select>
                     </div>
                     <div className="col-md-6">
-                      <label className="div_label">Subject*</label>
+                      <label className="div_label">Subject<span class="redStar">*</span></label>
                       <input
                         type="text"
                         name="subject"
@@ -367,7 +367,7 @@ console.log(response.data)
                   </div>
                   <div className="row">
                     <div className="col-md-12">
-                      <label className="div_label">Message*</label>
+                      <label className="div_label">Message<span class="redStar">*</span></label>
                       <textarea
                         className="box2 form-control "
                         name="message"
@@ -377,9 +377,11 @@ console.log(response.data)
                     </div>
                   </div>
 
-                  <Button className="btn_add_web mt-3" onClick={postdata}>
+                 <div className="text-center">
+                   <button className="btn_add_web mt-3" onClick={postdata}>
                     Add Query
-                  </Button>
+                  </button>
+                 </div>
                 </form>
               ) : (
                 // ✅ TABLE
