@@ -97,9 +97,7 @@ function App() {
           <Route path='/About-us' element={<Aboutus />} />
           <Route path='/Privacy-policy' element={<Privacypolicy />} />
           <Route path='/Terms-condition' element={<TermsandCondition />} />
-         
           <Route path='/testing' element={<Uiforms />} />
-          {/* <Route path='*' element={<Universalpage />} /> */}
           <Route path='/airFreight' element={<AirFreight />} />
           <Route path='/seaFreight' element={<SeaFreight/>} />
           <Route path='/warehouse' element={<Warehousing/>} />

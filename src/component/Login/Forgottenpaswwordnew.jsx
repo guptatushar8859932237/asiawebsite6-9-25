@@ -4,23 +4,19 @@ import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 import { useParams } from 'react-router-dom';
-
 export default function Forgottenpaswwordnew() {
   const { token } = useParams();
   const handletop = () => {
     window.scrollTo(0, 0)
   }
-
   useEffect(() => {
     handletop()
   })
-
   const [data, setData] = useState({
     newPassword: "", confirmPassword: ""
   })
   const [error, setError] = useState([])
   const navigate = useNavigate()
-
   const handlechange = (e) => {
     const { name, value } = e.target
     setData({ ...data, [name]: value })
@@ -36,11 +32,9 @@ export default function Forgottenpaswwordnew() {
     }
     setError(error)
   }
-
   const handleclick = () => {
     handlevalidate(data)
   }
- 
 const apihit = () => {
   const datauswer = {
     newPassword: data.newPassword,
@@ -50,19 +44,14 @@ const apihit = () => {
   axios
     .post(`${process.env.REACT_APP_BASE_URL}user-reset-password?token=${token}`, datauswer)
     .then((response) => {
-      // Show success toast
       toast.success(response.data.msg);
-      // Remove token from localStorage
       localStorage.removeItem("token");
-      // Redirect to external login page
       window.location.href = "https://ship.asiadirect.africa/login";
     })
     .catch((error) => {
-      // Show error toast
       toast.error(error.response?.data?.msg || "Something went wrong");
     });
 };
-
   return (
     <div>
       <section className="loginSec">
@@ -96,4 +85,3 @@ const apihit = () => {
     </div>
   )
 }
-
