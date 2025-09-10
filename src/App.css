@@ -4187,16 +4187,15 @@ li.nav-item.dropdown.dropImg ul.dropdown-menu li .dropdown-item:active {
   color: rgb(231, 22, 14);
   font-size: 14px;
   font-weight: 600;
-  background-color: #ff000026;
+  background-color: #00ea511c;
   border-radius: 20px;
 }
 .dec_btn123green {
   border: unset;
   padding: 0px 10px;
-  color: rgb(14, 231, 61);
+  color: green;
   font-size: 14px;
-  font-weight: 600;
-  background-color: #00ea5140;
+   background-color: #00ea5140;
   border-radius: 20px;
 }
 .dot_icon svg {
@@ -5486,4 +5485,22 @@ button.circlePlus {
 }
 .accSumary p strong,.accSumary p span{
   font-size: 14px;
+}
+ .redStar {
+  color: var(--maroon);
+}
+.unitDimention select {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    width: 65px;
+    background-color: #bbbbbb33;
+    border: unset;
+}
+.unitDimention {
+    position: relative;
+}
+.unitDimention select:focus{
+  outline: unset;
+  box-shadow: unset;
 }

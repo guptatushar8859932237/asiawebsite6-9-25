@@ -73,7 +73,7 @@ export default function Homebanner() {
                                         <p className='text-white fs-5 short_para'>With truly integrated logistics there’s always a new way to keep your goods moving and
                                             your business growing.</p>
                                         <div className='text-center'>
-                                            <button className='btn text-white fw-bolder' onClick={hanldeclicknavi} style={{ backgroundColor: "#ce1d22", padding: "10px 20px" }}>Add Freight <i className="fi fi-rr-arrow-right"></i></button>
+                                            <button className='btn text-white fw-bolder' onClick={hanldeclicknavi} style={{ backgroundColor: "#d01b20", padding: "10px 20px" }}>Add Freight <i className="fi fi-rr-arrow-right"></i></button>
                                         </div>
                                     </div>
                                 </div>
@@ -91,7 +91,7 @@ export default function Homebanner() {
                                     <p className='text-white fs-5 short_para'>With truly integrated logistics there’s always a new way to keep your goods moving and
                                         your business growing.</p>
                                     <div className='text-center'>
-                                        <button className='btn text-white fw-bolder' onClick={hanldeclicknavi} style={{ backgroundColor: "#ce1d22", padding: "10px 20px" }}>Add Freight <i className="fi fi-rr-arrow-right"></i></button>
+                                        <button className='btn text-white fw-bolder' onClick={hanldeclicknavi} style={{ backgroundColor: "#d01b20", padding: "10px 20px" }}>Add Freight <i className="fi fi-rr-arrow-right"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -108,7 +108,7 @@ export default function Homebanner() {
                                     <p className='text-white fs-5 short_para'>With truly integrated logistics there’s always a new way to keep your goods moving and
                                         your business growing.</p>
                                     <div className='text-center'>
-                                        <button className='btn text-white fw-bolder' onClick={hanldeclicknavi} style={{ backgroundColor: "#ce1d22", padding: "10px 20px" }}>Add Freight <i className="fi fi-rr-arrow-right"></i></button>
+                                        <button className='btn text-white fw-bolder' onClick={hanldeclicknavi} style={{ backgroundColor: "#d01b20", padding: "10px 20px" }}>Add Freight <i className="fi fi-rr-arrow-right"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -125,7 +125,7 @@ export default function Homebanner() {
                                     <p className='text-white fs-5 short_para'>With truly integrated logistics there’s always a new way to keep your goods moving and
                                         your business growing.</p>
                                     <div className='text-center'>
-                                        <button className='btn text-white fw-bolder' onClick={hanldeclicknavi} style={{ backgroundColor: "#ce1d22", padding: "10px 20px" }}>Add Freight <i className="fi fi-rr-arrow-right"></i></button>
+                                        <button className='btn text-white fw-bolder' onClick={hanldeclicknavi} style={{ backgroundColor: "#d01b20", padding: "10px 20px" }}>Add Freight <i className="fi fi-rr-arrow-right"></i></button>
                                     </div>
                                 </div>
                             </div>

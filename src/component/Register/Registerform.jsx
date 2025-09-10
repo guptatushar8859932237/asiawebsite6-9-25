@@ -1273,7 +1273,7 @@ function RegisterForm() {
                       </div>
                     
                       <div className="col-12 text-center mt-4">
-                        <button type="submit" className="btn  px-5">
+                        <button type="submit" className="btn btn_add_web px-5">
                           Register
                         </button>
                       </div>

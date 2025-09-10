@@ -13,8 +13,8 @@ export default function Addclearing() {
   const navigate = useNavigate();
   const [selectedImage, setSelectedImage] = useState(null);
   const [country, setCountry] = useState([]);
-    const [formData2, setFormData2] = useState(null);
-  
+  const [formData2, setFormData2] = useState(null);
+
   const [freightMode, setFreightMode] = useState("");
   const [data, setData] = useState({
     user_id: "",
@@ -85,7 +85,7 @@ export default function Addclearing() {
     setError(error);
   };
 
-   const handleFileChange2 = (event) => {
+  const handleFileChange2 = (event) => {
     const files = event.target.files;
     setFormData2({ ...formData2, licenses: files });
   };
@@ -111,17 +111,16 @@ export default function Addclearing() {
     formdata.append("customer_ref", data?.customer_ref);
     formdata.append("destination", data?.destination);
     // formdata.append("document", selectedImage);
-    formdata.append("comment_on_docs", data?.comment_on_docs)
-    console.log(data.document)
-    ;
+    formdata.append("comment_on_docs", data?.comment_on_docs);
+    console.log(data.document);
     formdata.append("documentName", data?.documentName);
-    
-     if (formData2) {
+
+    if (formData2) {
       for (let i = 0; i < formData2.licenses.length; i++) {
         formdata.append("document", formData2.licenses[i]);
       }
     }
-    
+
     for (let [key, value] of formdata.entries()) {
       console.log(`${key} : ${value}`);
     }
@@ -158,14 +157,39 @@ export default function Addclearing() {
         toast.errror(error.response.data.data);
       });
   };
-  const destinations = [
-    { label: "South Africa" },
-    { label: "Thailand" },
-    { label: "Dubai" },
-    { label: "Singapore" },
-    { label: "United States" },
-    { label: "United Kingdom" },
-  ];
+  // const destinations = [
+  //   { label: "South Africa" },
+  //   { label: "Thailand" },
+  //   { label: "Dubai" },
+  //   { label: "Singapore" },
+  //   { label: "United States" },
+  //   { label: "United Kingdom" },
+  // ];
+  // 9-9
+  const getLabel = () => {
+    if (!data.packing_type) return "Number of Packages";
+    return `Number of ${data.packing_type}${
+      data.packing_type.endsWith("s") ? "" : "s"
+    }`;
+  };
+
+  const getHelperText = () => {
+    if (!data.packing_type) return "Provide the quantity being shipped.";
+    return `Provide the number of ${data.packing_type.toLowerCase()} being shipped.`;
+  };
+  const [countries, setCountries] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_BASE_URL}GetCountries`)
+      .then((res) => {
+        console.log("pratima", res.data.data); // 👈 this should now log the array
+        setCountries(res.data.data); // 👈 store only the array in state
+      })
+      .catch((err) => {
+        console.error("Error fetching countries:", err);
+      });
+  }, []);
 
   return (
     <div>
@@ -179,9 +203,8 @@ export default function Addclearing() {
                 <div class="page-banner full-row">
                   <div class="container">
                     <div class="row align-items-center">
-                      
-                        <div className="col-md-6">
-                          <div className="d-flex">
+                      <div className="col-md-6">
+                        <div className="d-flex">
                           <Link
                             className="backArrow"
                             onClick={() => navigate(-1)}
@@ -190,8 +213,8 @@ export default function Addclearing() {
                           </Link>
                           <h3 class="fre_det_hd">Custom Clearance</h3>
                         </div>
-                        </div>
-                       
+                      </div>
+
                       <div class="col-md-6">
                         <nav class="float-start float-md-end">
                           <ol class="breadcrumb m-0">
@@ -251,11 +274,17 @@ export default function Addclearing() {
                           placeholder="Air Freight Option"
                         /> */}
                         <div className="mainTool">
-                          <select name="enquiryType" required>
+                          <select
+                            name="freight_option"
+                            required
+                            onChange={handleInputChange}
+                          >
                             <option value="">Select...</option>
-                            <option value="South Africa">Economy</option>
-                            <option value="Thailand">Express</option>
-                            <option value="Dubai">Cargo Priority</option>
+                            <option value="Economy">Economy</option>
+                            <option value="Express">Express</option>
+                            <option value="Cargo Priority">
+                              Cargo Priority
+                            </option>
                           </select>
                           <div className="toolSpace">
                             <p className="toolText">
@@ -277,11 +306,17 @@ export default function Addclearing() {
                           placeholder="Enter sea Name"
                         /> */}
                         <div className="mainTool">
-                          <select name="enquiryType" required>
+                          <select
+                            name="freight_option"
+                            required
+                            onChange={handleInputChange}
+                          >
                             <option value="">Select...</option>
-                            <option value="South Africa">Indian Ocean</option>
-                            <option value="Thailand">Pacific Ocean</option>
-                            <option value="Dubai">Atlantic Ocean</option>
+                            <option value="Indian Ocean">Indian Ocean</option>
+                            <option value="Pacific Ocean">Pacific Ocean</option>
+                            <option value="Atlantic Ocean">
+                              Atlantic Ocean
+                            </option>
                           </select>
                           <div className="toolSpace">
                             <p className="toolText">
@@ -293,12 +328,26 @@ export default function Addclearing() {
                       </div>
                     )}
                     <div className="col-md-6 mb-3">
+                      {/* <input
+                        type="text"
+                        className="form-control"
+                        onChange={handleInputChange}
+                        name="destination"
+                      /> */}
                       <h5>Destination</h5>
                       <div className="autoComplete mainTool">
                         <Autocomplete
                           disablePortal
-                          options={destinations}
-                          getOptionLabel={(option) => option.label}
+                          options={countries || []}
+                          getOptionLabel={(option) => option.name || ""}
+                          onChange={(event, value) => {
+                            handleInputChange({
+                              target: {
+                                name: "destination",
+                                value: value?.id || "",
+                              },
+                            });
+                          }}
                           renderInput={(params) => (
                             <TextField
                               {...params}
@@ -307,6 +356,7 @@ export default function Addclearing() {
                             />
                           )}
                         />
+
                         <div className="toolSpace">
                           <p className="toolText">
                             Enter the country or location where the goods will
@@ -319,7 +369,7 @@ export default function Addclearing() {
                     <div className="col-md-6 mb-3">
                       <div className="col-12 ">
                         <div className="">
-                          <h5 className="mb-0">Is this</h5>
+                          <h5 className="mb-0">I would like to</h5>
                           <div className="shipRefer d-flex align-items-center">
                             <input
                               type="radio"
@@ -350,7 +400,7 @@ export default function Addclearing() {
                     </div>
                     <div className="col-md-6">
                       <div className="mb-3">
-                        <h5 className="mb-0">Are You The</h5>
+                        <h5 className="mb-0">I am the</h5>
                         <div className="shipRefer d-flex align-items-center">
                           <input
                             type="radio"
@@ -569,7 +619,7 @@ export default function Addclearing() {
                         <option>Box</option>
                         <option>Crate</option>
                         <option>Pallet</option>
-                        <option>Bags</option>
+                        <option>Bag</option>
                       </select>
                       <div className="toolSpace">
                         <p className="toolText">
@@ -579,12 +629,26 @@ export default function Addclearing() {
                     </div>
                     <div className="col-md-6 mb-3 mainTool">
                       <h5>Total Dimension</h5>
-                      <input
-                        className="form-control"
-                        onChange={handleInputChange}
-                        placeholder="0.00"
-                        name="total_dimension"
-                      ></input>
+                      <div className="unitDimention">
+                        <input
+                          className="form-control"
+                          onChange={handleInputChange}
+                          placeholder="0.00"
+                          name="total_dimension"
+                        ></input>
+                        <select
+                          className="form-select"
+                          name="dimension_unit"
+                          value={data.dimension_unit || ""}
+                          onChange={handleInputChange}
+                        >
+                          <option value="">Unit</option>
+                          <option value="cm³">cm³</option>
+                          <option value="m³">m³</option>
+                          <option value="in³">in³</option>
+                          <option value="ft³">ft³</option>
+                        </select>
+                      </div>
                       <div className="toolSpace">
                         <p className="toolText">
                           Specify the complete size of the shipment.
@@ -592,27 +656,44 @@ export default function Addclearing() {
                       </div>
                     </div>
                     <div className="col-md-6 mb-3 mainTool">
-                      <h5>num. of Boxes</h5>
+                      <h5>{getLabel()}</h5>
                       <input
                         className="form-control"
                         onChange={handleInputChange}
-                        placeholder="0.00"
+                        placeholder={`Enter number of ${
+                          data.packing_type
+                            ? data.packing_type.toLowerCase() + "s"
+                            : "packages"
+                        }`}
                         name="total_box"
-                      ></input>
+                        value={data.total_box}
+                      />
                       <div className="toolSpace">
-                        <p className="toolText">
-                          Provide the number of boxes being shipped.
-                        </p>
+                        <p className="toolText">{getHelperText()}</p>
                       </div>
                     </div>
                     <div className="col-md-6 mb-3 mainTool">
                       <h5>Total weight</h5>
-                      <input
-                        className="form-control"
-                        onChange={handleInputChange}
-                        placeholder="0.00"
-                        name="total_weight"
-                      ></input>
+                      <div className="unitDimention">
+                        <input
+                          className="form-control"
+                          onChange={handleInputChange}
+                          placeholder="0.00"
+                          name="total_weight"
+                        ></input>
+                        <select
+                          className="form-select"
+                          name="weight_unit"
+                          value={data.weight_unit || ""}
+                          onChange={handleInputChange}
+                        >
+                          <option value="">Unit</option>
+                          <option value="kg">kg</option>
+                          <option value="g">g</option>
+                          <option value="lbs">lbs</option>
+                          <option value="ton">ton</option>
+                        </select>
+                      </div>
                       <div className="toolSpace">
                         <p className="toolText">
                           Provide the overall weight of the shipment.
@@ -620,23 +701,29 @@ export default function Addclearing() {
                       </div>
                     </div>
                     <div className="col-md-6 mb-3 mainTool">
-                     
-
-                              <label htmlFor="clearing_agent" className="form-label">
-                   Select Document
-                  </label>
-                          <select name="documentName" onChange={handleInputChange}>
-                            <option value="">Select...</option>
-                            <option value="Customs Documents">Customs docs</option>
-                            <option value="Supporting Documents">Supporting docs</option>
-                            <option value="Invoice, Packing List">Invoice / Packing L</option>
-                            <option value="Product Literature">Product Literature</option>
-                            <option value="Letters of authority">LOA</option>
-                            <option value="Waybills">Freight Docs</option>
-                            <option value="Waybills">Shipping instruction</option>
-                            <option value="Supplier Invoices">Freight Invoices </option>
-                            <option value="AD_Quotations">Attach Quote</option>
-                          </select>
+                      <label htmlFor="clearing_agent" className="form-label">
+                        Select Document
+                      </label>
+                      <select name="documentName" onChange={handleInputChange}>
+                        <option value="">Select...</option>
+                        <option value="Customs Documents">Customs docs</option>
+                        <option value="Supporting Documents">
+                          Supporting docs
+                        </option>
+                        <option value="Invoice, Packing List">
+                          Invoice / Packing L
+                        </option>
+                        <option value="Product Literature">
+                          Product Literature
+                        </option>
+                        <option value="Letters of authority">LOA</option>
+                        <option value="Waybills">Freight Docs</option>
+                        <option value="Waybills">Shipping instruction</option>
+                        <option value="Supplier Invoices">
+                          Freight Invoices{" "}
+                        </option>
+                        <option value="AD_Quotations">Attach Quote</option>
+                      </select>
                       <div className="toolSpace">
                         <p className="toolText">
                           Select the type of document you want to attach with
@@ -645,14 +732,14 @@ export default function Addclearing() {
                       </div>
                     </div>
                     <div className="col-md-6 mb-3 mainTool">
-                       <h5>licenses</h5>
-                        <input
-                          type="file"
-                          name="licenses"
-                          className="mb-3 w-100 rounded"
-                          onChange={handleFileChange2}
-                          multiple
-                        />
+                      <h5>licenses</h5>
+                      <input
+                        type="file"
+                        name="licenses"
+                        className="mb-3 w-100 rounded"
+                        onChange={handleFileChange2}
+                        multiple
+                      />
                       <div className="toolSpace">
                         <p className="toolText">
                           Select files to include with your shipment.

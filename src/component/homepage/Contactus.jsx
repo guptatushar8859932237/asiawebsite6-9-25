@@ -194,7 +194,7 @@ export default function Contactus() {
                   <form method="post">
                     <div class="row">
                       <div class="col-md-6">
-                        <label class="div_label">Name*</label>
+                        <label class="div_label">Name <span className="redStar">*</span></label>
                         <input
                           type="text"
                           class="box1 form-control "
@@ -205,7 +205,7 @@ export default function Contactus() {
                         />
                       </div>
                       <div class="col-md-6">
-                        <label class="div_label">Phone No.*</label>
+                        <label class="div_label">Phone No <span className="redStar">*</span></label>
                         <input
                           type="text"
                           class="box1 form-control "
@@ -218,7 +218,7 @@ export default function Contactus() {
                     </div>
                     <div className="row">
                       <div className="col-md-6">
-                        <label class="div_label">Email*</label>
+                        <label class="div_label">Email <span className="redStar">*</span></label>
                         <input
                           type="email"
                           name="email"
@@ -229,7 +229,7 @@ export default function Contactus() {
                         />
                       </div>
                       <div className="col-md-6">
-                        <label class="div_label">Subject*</label>
+                        <label class="div_label">Subject <span className="redStar">*</span></label>
                         <input
                           type="text"
                           name="subject"
@@ -240,7 +240,7 @@ export default function Contactus() {
                         />
                       </div>
                       <div className="col-md-6">
-                        <label class="div_label">Nature of Enquiry*</label>
+                        <label class="div_label">Nature of Enquiry <span className="redStar">*</span></label>
                         <div>
                           <select name="enquiryType" required>
                             <option value="">Select...</option>
@@ -251,7 +251,7 @@ export default function Contactus() {
                         </div>
                       </div>
                       <div className="col-md-6">
-                        <label class="div_label">Country / Office*</label>
+                        <label class="div_label">Country / Office <span className="redStar">*</span></label>
                         <div>
                           <select name="enquiryType" required>
                             <option value="">Select...</option>
@@ -264,7 +264,7 @@ export default function Contactus() {
                     </div>
                     <div className="row">
                       <div className="col-md-12">
-                        <label class="div_label">Message*</label>
+                        <label class="div_label">Message <span className="redStar">*</span></label>
                         <textarea
                           class="box2 form-control "
                           name="message"
@@ -273,10 +273,12 @@ export default function Contactus() {
                         ></textarea>
                       </div>
                     </div>
+<div className="text-center">
 
                     <button className="btn_add_web" onClick={postdata}>
                       Submit
                     </button>
+</div>
                   </form>
                 </div>
                 <div class="col-md-3">

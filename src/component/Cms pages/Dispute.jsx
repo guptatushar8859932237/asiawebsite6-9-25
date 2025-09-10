@@ -303,7 +303,7 @@ console.log(response.data)
       <section>
         <div className="container my-5">
           <div className="row justify-content-center mt-5 align-items-center">
-            <div className="col-md-9">
+            <div className="col-md-12">
               <div className="div1 mb-4 d-flex justify-content-between">
                 <h2 className="heading_1">  {showForm ? "Get in Touch" : "View Dispute"}</h2>
                 <div>
@@ -317,7 +317,7 @@ console.log(response.data)
                 <form method="post">
                   <div className="row">
                     <div className="col-md-6">
-                      <label className="div_label">Name*</label>
+                      <label className="div_label">Name <span className="redStar">*</span></label>
                       <input
                         type="text"
                         className="box1 form-control "
@@ -328,7 +328,7 @@ console.log(response.data)
                       />
                     </div>
                     <div className="col-md-6">
-                      <label className="div_label">Freight Number.*</label>
+                      <label className="div_label">Freight Number  <span className="redStar">*</span></label>
                       <input
                         type="text"
                         className="box1 form-control "
@@ -341,7 +341,7 @@ console.log(response.data)
                   </div>
                   <div className="row">
                     <div className="col-md-6">
-                      <label className="div_label">Nature of Heading*</label>
+                      <label className="div_label">Nature of Heading  <span className="redStar">*</span></label>
                       <select
                         onChange={handlechnage}
                         name="email"
@@ -354,7 +354,7 @@ console.log(response.data)
                       </select>
                     </div>
                     <div className="col-md-6">
-                      <label className="div_label">Subject*</label>
+                      <label className="div_label">Subject <span className="redStar">*</span></label>
                       <input
                         type="text"
                         name="subject"
@@ -367,7 +367,7 @@ console.log(response.data)
                   </div>
                   <div className="row">
                     <div className="col-md-12">
-                      <label className="div_label">Message*</label>
+                      <label className="div_label">Message <span className="redStar">*</span></label>
                       <textarea
                         className="box2 form-control "
                         name="message"
@@ -377,9 +377,11 @@ console.log(response.data)
                     </div>
                   </div>
 
-                  <Button className="btn_add_web mt-3" onClick={postdata}>
+                 <div className="text-center">
+                   <button className="btn_add_web mt-3" onClick={postdata}>
                     Add Query
-                  </Button>
+                  </button>
+                 </div>
                 </form>
               ) : (
                 // ✅ TABLE

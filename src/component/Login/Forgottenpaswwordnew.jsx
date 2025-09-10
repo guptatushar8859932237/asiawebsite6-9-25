@@ -54,7 +54,7 @@ const apihit = () => {
 };
   return (
     <div>
-      <section className="loginSec">
+      <section className="loginSec" style={{height:"100vh"}}>
         <div className="container">
           <div className="row">
             <div className="col-lg-12">
