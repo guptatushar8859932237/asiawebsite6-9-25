@@ -61,6 +61,10 @@ export default function UpdateProfile() {
 
     const handlevalidate = (value) => {
         let error = {}
+        if (!value.email) {
+            error.email = "Email is required"
+            toast.error("Email is Required")
+        }
         if (!value.telephone) {
             error.telephone = "telephone is required"
             toast.error("Telephone is Required")
@@ -183,7 +187,7 @@ export default function UpdateProfile() {
                                             <input type="text" name='full_name' value={userData?.full_name} onChange={handleChange} className="form-control" />
                                         </div>
                                         <div className="col">
-                                            <label>Email </label>
+                                            <label>Email <span className='redStar'>*</span> </label>
                                             <input type="email" name='email' value={userData?.email} onChange={handleChange} className="form-control" />
                                         </div>
                                     </div>
@@ -209,11 +213,11 @@ export default function UpdateProfile() {
                                     </div>
                                     <div className="row">
                                         <div className="col">
-                                            <label htmlFor="">Cellphone <span className='text-danger'>*</span></label>
+                                            <label htmlFor="">Cellphone <span className='redStar'>*</span></label>
                                             <input type="text" name='cellphone' value={userData?.cellphone} onKeyPress={handlekeypreaa} maxLength={13} onChange={handleChange} className="form-control" />
                                         </div>
                                         <div className="col">
-                                            <label htmlFor="">Telephone <span className='text-danger'>*</span></label>
+                                            <label htmlFor="">Telephone <span className='redStar'>*</span></label>
                                             <input type="text" name='telephone' value={userData?.telephone} onKeyPress={handlekeypreaa} maxLength={13} onChange={handleChange} className="form-control" />
                                         </div>
                                     </div>

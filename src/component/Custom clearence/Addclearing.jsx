@@ -14,7 +14,6 @@ export default function Addclearing() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [country, setCountry] = useState([]);
   const [formData2, setFormData2] = useState(null);
-
   const [freightMode, setFreightMode] = useState("");
   const [data, setData] = useState({
     user_id: "",
@@ -215,7 +214,7 @@ export default function Addclearing() {
                         </div>
                       </div>
 
-                      <div class="col-md-6">
+                      {/* <div class="col-md-6">
                         <nav class="float-start float-md-end">
                           <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item">
@@ -226,7 +225,7 @@ export default function Addclearing() {
                             </li>
                           </ol>
                         </nav>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </div>

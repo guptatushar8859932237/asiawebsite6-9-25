@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import Autocomplete from "@mui/material/Autocomplete";
+import TextField from "@mui/material/TextField";
+import { ArrowBack } from "@mui/icons-material";
 export default function AddFreight() {
   const [showAirOptions, setShowAirOptions] = useState(false);
   const [error, setError] = useState({});
@@ -225,7 +228,11 @@ export default function AddFreight() {
   let year = today.getFullYear();
   let month = String(today.getMonth() + 1).padStart(2, "0"); // Months are 0-based, so add 1
   let day = String(today.getDate()).padStart(2, "0");
-  let formattedDate = `${year}-${month}-${day}`;
+  const initialFormattedDate = `${today.getFullYear()}-${String(
+    today.getMonth() + 1
+  ).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
+  const [formattedDate, setFormattedDate] = useState(initialFormattedDate);
+
   const handleFileChange4 = (event) => {
     const files = event.target.files;
     setFormData5({ ...formData5, supplier_invoice: files });
@@ -252,7 +259,15 @@ export default function AddFreight() {
                 <div class="container">
                   <div class="row align-items-center">
                     <div class="col-md-6">
-                      <h3 class="fre_det_hd">Add Freight</h3>
+                      <div className="d-flex">
+                        <Link
+                          className="backArrow"
+                          onClick={() => navigate(-1)}
+                        >
+                          <ArrowBack />
+                        </Link>
+                        <h3 class="fre_det_hd">Add Freight</h3>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -588,7 +603,7 @@ export default function AddFreight() {
                   </div>
                   <div className="col-lg-6">
                     <div className="">
-                      <h5>You are the </h5>
+                      <h5>I am the </h5>
                       <div className="shipRefer d-flex align-items-center">
                         <input
                           type="radio"
@@ -621,9 +636,9 @@ export default function AddFreight() {
                 </div>
                 <div className="row">
                   <div className="col-lg-6">
-                    <div className="col-lg-12 mainTool">
+                    <div className="col-lg-12 mainTool autoComplete">
                       <h5>Collection from</h5>
-                      <select
+                      {/* <select
                         name="collectionFrom"
                         onChange={handleInputChange}
                       >
@@ -640,7 +655,26 @@ export default function AddFreight() {
                               </>
                             );
                           })}
-                      </select>
+                      </select> */}
+                      <Autocomplete
+                        options={country || []}
+                        getOptionLabel={(option) => option.name || ""}
+                        onChange={(event, value) => {
+                          handleInputChange({
+                            target: {
+                              name: "collectionFrom",
+                              value: value?.id || "", // send the id
+                            },
+                          });
+                        }}
+                        renderInput={(params) => (
+                          <TextField
+                            {...params}
+                            placeholder="Collection From"
+                            variant="outlined"
+                          />
+                        )}
+                      />
                       <div className="toolSpace">
                         <p className="toolText">
                           Specify the country from which goods will be picked up
@@ -680,11 +714,7 @@ export default function AddFreight() {
 
                     <div className="col-12 mainTool">
                       <h5>Incoterm</h5>
-                      <select
-                        name="incoterm"
-                        onChange={handleInputChange}
-                        className="form-control"
-                      >
+                      <select name="incoterm" onChange={handleInputChange}>
                         <option value="">Select...</option>
                         <option value="CFR">CFR</option>
                         <option value="CIF">CIF</option>
@@ -705,9 +735,9 @@ export default function AddFreight() {
                     </div>
                   </div>
                   <div className="col-lg-6 ">
-                    <div className="mainTool">
+                    <div className="mainTool autoComplete">
                       <h5>Delivery To</h5>
-                      <select name="country" onChange={handleInputChange}>
+                      {/* <select name="country" onChange={handleInputChange}>
                         <option>Select...</option>
                         {country &&
                           country.length > 0 &&
@@ -716,7 +746,26 @@ export default function AddFreight() {
                               {item.name}
                             </option>
                           ))}
-                      </select>
+                      </select> */}
+                      <Autocomplete
+                        options={country || []}
+                        getOptionLabel={(option) => option.name || ""}
+                        onChange={(event, value) => {
+                          handleInputChange({
+                            target: {
+                              name: "country",
+                              value: value?.id || "", // same as your <select> value
+                            },
+                          });
+                        }}
+                        renderInput={(params) => (
+                          <TextField
+                            {...params}
+                            placeholder="Delivery To" // 👈 works like <option>Select...</option>
+                            variant="outlined"
+                          />
+                        )}
+                      />
                       <div className="toolSpace">
                         <p className="toolText">
                           Specify the country of delivery for this shipment.
@@ -765,7 +814,7 @@ export default function AddFreight() {
                         type="text"
                         name="productDescription"
                         placeholder="Product Description"
-                        className="py-2 px-1 w-100"
+                        className=" w-100"
                         onChange={handleInputChange}
                       />
                     </div>
@@ -775,9 +824,9 @@ export default function AddFreight() {
                       </p>
                     </div>
                   </div>
-                  <div className="col-lg-6 mb-3 mainTool">
+                  <div className="col-lg-6 mb-3 mainTool autoComplete">
                     <h5>Commodity</h5>
-                    <select
+                    {/* <select
                       name="commodity"
                       onChange={handleInputChange}
                       placeholder="commodity"
@@ -795,7 +844,22 @@ export default function AddFreight() {
                             </>
                           );
                         })}
-                    </select>
+                    </select> */}
+                    <Autocomplete
+                      options={apidata || []} // ensures it’s always an array
+                      getOptionLabel={(option) => option.name || ""} // display the name
+                      onChange={(event, value) => {
+                        handleInputChange({
+                          target: {
+                            name: "commodity",
+                            value: value ? value.id : "", // value is the id
+                          },
+                        });
+                      }}
+                      renderInput={(params) => (
+                        <TextField {...params} placeholder="Commodity" />
+                      )}
+                    />
                     <div className="toolSpace">
                       <p className="toolText">
                         Specify the type of commodity being shipped.
@@ -858,15 +922,30 @@ export default function AddFreight() {
                   </div>
                 </div>
                 <div className="row">
-                  <div className="col-lg-6 mt-3 mainTool">
+                  <div className="col-lg-6 mt-3 mainTool ">
                     <h5>Total Dimension</h5>
-                    <input
-                      type="text"
-                      onKeyPress={handlekey12}
-                      placeholder="Total Dimension"
-                      name="totalDimension"
-                      onChange={handleInputChange}
-                    />
+                    <div className="unitDimention">
+                      <input
+                        type="text"
+                        onKeyPress={handlekey12}
+                        placeholder="Total Dimension"
+                        name="totalDimension"
+                        onChange={handleInputChange}
+                      />
+                      <select
+                        className="form-select"
+                        name="dimension_unit"
+                        // value={dimension_unit || ""}
+                        onChange={handleInputChange}
+                      >
+                        <option value="">Unit</option>
+                        <option value="cm³">cm³</option>
+                        <option value="m³">m³</option>
+                        <option value="in³">in³</option>
+                        <option value="ft³">ft³</option>
+                      </select>
+                    </div>
+
                     <div className="toolSpace">
                       <p className="toolText">
                         Enter the overall dimensions (L x W x H) of all packages
@@ -876,13 +955,27 @@ export default function AddFreight() {
                   </div>
                   <div className="col-lg-6 mt-3 mainTool">
                     <h5>Total Weight</h5>
-                    <input
-                      type="text"
-                      onKeyPress={handlekey12}
-                      placeholder="Total Weight"
-                      name="totalWeight"
-                      onChange={handleInputChange}
-                    />
+                    <div className="unitDimention">
+                      <input
+                        type="text"
+                        onKeyPress={handlekey12}
+                        placeholder="Total Weight"
+                        name="totalWeight"
+                        onChange={handleInputChange}
+                      />
+                      <select
+                        className="form-select"
+                        name="weight_unit"
+                        // value={weight_unit || ""}
+                        onChange={handleInputChange}
+                      >
+                        <option value="">Unit</option>
+                        <option value="kg">kg</option>
+                        <option value="g">g</option>
+                        <option value="lbs">lbs</option>
+                        <option value="ton">ton</option>
+                      </select>
+                    </div>
                     <div className="toolSpace">
                       <p className="toolText">
                         Enter the combined weight of all packages.
@@ -949,7 +1042,7 @@ export default function AddFreight() {
                       <p className="toolText"> Choose and upload the Packing List file (PDF, DOC, or image) for this cargo.</p>
                     </div>
                    
-                  </div> */} 
+                  </div> */}
 
                   <div className="col-6 mt-3 mainTool">
                     <h5>Add Document</h5>
@@ -961,9 +1054,11 @@ export default function AddFreight() {
                       multiple
                     />
                     <div className="toolSpace">
-                      <p className="toolText">Upload valid license documents required for this shipment or cargo.</p>
+                      <p className="toolText">
+                        Upload valid license documents required for this
+                        shipment or cargo.
+                      </p>
                     </div>
-                   
                   </div>
                   {/* <div className="col-6 mt-3 mainTool">
                     <h5>Other Documents</h5>
@@ -990,38 +1085,47 @@ export default function AddFreight() {
                       <option value="licenses">Licenses/Permits</option>
                       <option value="otherDocuments">Other documents</option> */}
                     {/* </select> */}
-                      <label htmlFor="clearing_agent" className="form-label">
-                   Select Document
-                  </label>
-                          <select name="documentName" onChange={handleInputChange}>
-                            <option value="">Select...</option>
-                            <option value="Customs Documents">Customs docs</option>
-                            <option value="Supporting Documents">Supporting docs</option>
-                            <option value="Invoice, Packing List">Invoice / Packing L</option>
-                            <option value="Product Literature">Product Literature</option>
-                            <option value="Letters of authority">LOA</option>
-                            <option value="Waybills">Freight Docs</option>
-                            <option value="Waybills">Shipping instruction</option>
-                            <option value="Supplier Invoices">Freight Invoices </option>
-                            <option value="AD_Quotations">Attach Quote</option>
-                          </select>
+                    <label htmlFor="clearing_agent" className="form-label">
+                      Select Document
+                    </label>
+                    <select name="documentName" onChange={handleInputChange}>
+                      <option value="">Select...</option>
+                      <option value="Customs Documents">Customs docs</option>
+                      <option value="Supporting Documents">
+                        Supporting docs
+                      </option>
+                      <option value="Invoice, Packing List">
+                        Invoice / Packing L
+                      </option>
+                      <option value="Product Literature">
+                        Product Literature
+                      </option>
+                      <option value="Letters of authority">LOA</option>
+                      <option value="Waybills">Freight Docs</option>
+                      <option value="Waybills">Shipping instruction</option>
+                      <option value="Supplier Invoices">
+                        Freight Invoices{" "}
+                      </option>
+                      <option value="AD_Quotations">Attach Quote</option>
+                    </select>
                     <div className="toolSpace">
-                      <p className="toolText"> Select the type of document you want to upload for this shipment</p>
+                      <p className="toolText">
+                        {" "}
+                        Select the type of document you want to upload for this
+                        shipment
+                      </p>
                     </div>
-                   
                   </div>
                   <div className="col-lg-6 mt-3 mainTool">
                     <h5>Comment</h5>
-                    <input
-                      type="text"
-                      name="comment"
-                      placeholder="comment"
-                     
-                    />
+                    <input type="text" name="comment" placeholder="comment" />
                     <div className="toolSpace">
-                      <p className="toolText"> Add clarifications or special handling instructions, if any</p>
+                      <p className="toolText">
+                        {" "}
+                        Add clarifications or special handling instructions, if
+                        any
+                      </p>
                     </div>
-                   
                   </div>
                   {/* add 27Aug */}
                   <div className="text-center mt-3">

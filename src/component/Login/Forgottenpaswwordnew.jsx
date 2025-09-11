@@ -78,7 +78,7 @@ const apihit = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div>  
         <div className="bgPosition"></div>
       </section>
       <ToastContainer />

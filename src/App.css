@@ -4324,8 +4324,8 @@ li.nav-item.dropdown.dropImg ul.dropdown-menu li .dropdown-item:active {
   align-items: center;
 }
 .pro_img {
-  height: 40px;
-  width: 50px;
+  height: 35px;
+  width: 35px;
   object-fit: cover;
   object-position: top;
   border-radius: 7px;
@@ -5427,7 +5427,15 @@ button.circlePlus {
   justify-content: center;
   font-weight: 600;
 }
-.backArrow {
+ .backArrow {
+    color: var(--blue);
+    margin-right: 3px;
+    vertical-align: bottom;
+    display: flex
+;
+    align-items: center;
+}
+.backArrow:hover{
   color: var(--blue);
 }
 .autoComplete input {

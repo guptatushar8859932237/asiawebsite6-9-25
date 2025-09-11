@@ -3,6 +3,8 @@ import image1 from "../../assestss/logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Flag from "../../assestss/Frame2.png";
+import imagelogouser from "../../assestss/logoasia.png";
+
 import axios from "axios";
 export default function Navbar() {
   const [addFreightVisible, setAddFreightVisible] = useState(true);
@@ -119,7 +121,10 @@ export default function Navbar() {
                   ) : (
                     <div>
                       {data.length === 0 ? (
-                        <p className="fw-bold text-center" style={{ marginTop: "100px" }}>
+                        <p
+                          className="fw-bold text-center"
+                          style={{ marginTop: "100px" }}
+                        >
                           No notifications
                         </p>
                       ) : (
@@ -141,8 +146,13 @@ export default function Navbar() {
                 aria-expanded="false"
               >
                 <img
-                  src={`${process.env.REACT_APP_BASE_URL_image}${userData.profile}`}
+                  src={
+                    userData?.profile
+                      ? `${process.env.REACT_APP_BASE_URL_image}${userData.profile}`
+                      : imagelogouser
+                  }
                   className="pro_img"
+                  alt="Profile"
                 />
                 <div className="ms-2">
                   <p className="pro_para">{userData?.full_name}</p>

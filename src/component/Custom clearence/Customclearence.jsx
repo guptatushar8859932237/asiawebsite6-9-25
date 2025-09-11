@@ -11,7 +11,9 @@ import SidebarWeb from "../homepage/SidebarwWeb";
 import NavbarWeb from "../homepage/NavbarWeb";
 import Arrow from "../../assestss/Group 2.png";
 import FooterWeb from "../homepage/FooterWeb";
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from "@mui/icons-material/Close";
+import Autocomplete from "@mui/material/Autocomplete";
+import TextField from "@mui/material/TextField";
 const pageSize = 5;
 export default function Customclearence() {
   const navigate = useNavigate();
@@ -20,7 +22,7 @@ export default function Customclearence() {
   const [searchQuery, setSearchQuery] = useState("");
   const [openModal, setOpenModal] = useState(false);
   const [files, setFiles] = useState(null);
-   const [formData2, setFormData2] = useState(null);
+  const [formData2, setFormData2] = useState(null);
   const [country, setCountry] = useState([]);
   const [id, setId] = useState("");
   const [images, setImages] = useState({
@@ -115,11 +117,11 @@ export default function Customclearence() {
     setPredata({ ...predata, [name]: value });
   };
 
-const dataid = JSON.parse(localStorage.getItem("data"));
+  const dataid = JSON.parse(localStorage.getItem("data"));
   const updatedata = () => {
     const formdata = new FormData();
     formdata.append("clearing_id", predata.clearing_id);
-    formdata.append("client",dataid?.id );
+    formdata.append("client", dataid?.id);
     formdata.append("comment_on_docs", predata.comment_on_docs);
     formdata.append("uploaded_by", "2");
     formdata.append("freight", predata.freight);
@@ -139,7 +141,7 @@ const dataid = JSON.parse(localStorage.getItem("data"));
     formdata.append("port_of_loading", predata.port_of_loading);
     formdata.append("port_of_discharge", predata.port_of_discharge);
     formdata.append("documentName", predata.documentName);
-     if (formData2) {
+    if (formData2) {
       for (let i = 0; i < formData2.licenses.length; i++) {
         formdata.append("document", formData2.licenses[i]);
       }
@@ -156,7 +158,7 @@ const dataid = JSON.parse(localStorage.getItem("data"));
       });
   };
   const handleclicknavi = (id) => {
-    console.log(id)
+    console.log(id);
     const userdata1 = data.filter((item) => {
       return item.id === id;
     });
@@ -199,7 +201,7 @@ const dataid = JSON.parse(localStorage.getItem("data"));
     setOpenModal(true);
     setId(item.id);
   };
-   const handleFileChange2 = (event) => {
+  const handleFileChange2 = (event) => {
     const files = event.target.files;
     setFormData2({ ...formData2, licenses: files });
   };
@@ -549,12 +551,12 @@ const dataid = JSON.parse(localStorage.getItem("data"));
                                 <div className="modal-body pt-0">
                                   <section className="frightFormSec manageModal my-0">
                                     <div className="row">
-                                      <div className="col-md-12">
+                                      <div className="col-md-6">
                                         <label htmlFor="" className="text-dark">
                                           Freight
                                         </label>
                                         <select
-                                          className="form-control mb-3"
+                                          className=" mb-3"
                                           onChange={hanldechange}
                                           value={predata.freight}
                                           name="freight"
@@ -592,7 +594,7 @@ const dataid = JSON.parse(localStorage.getItem("data"));
                                     <div className="row">
                                       <div className="col-md-6">
                                         <label htmlFor="" className="text-dark">
-                                          Is This
+                                          I would like to
                                         </label>
                                         <select
                                           className="form-control mb-3"
@@ -607,7 +609,7 @@ const dataid = JSON.parse(localStorage.getItem("data"));
                                       </div>
                                       <div className="col-md-6">
                                         <label htmlFor="" className="text-dark">
-                                          You are the
+                                          I am the
                                         </label>
                                         <select
                                           className="form-control mb-3"
@@ -626,11 +628,11 @@ const dataid = JSON.parse(localStorage.getItem("data"));
                                       </div>
                                     </div>
                                     <div className="row">
-                                      <div className="col-md-6">
+                                      <div className="col-md-6 autoComplete mb-3">
                                         <label htmlFor="" className="text-dark">
                                           Port of Entry Country
                                         </label>
-                                        <select
+                                        {/* <select
                                           name="loading_country"
                                           value={predata.loading_country}
                                           onChange={hanldechange}
@@ -649,14 +651,44 @@ const dataid = JSON.parse(localStorage.getItem("data"));
                                               </>
                                             );
                                           })}
-                                        </select>
+                                        </select> */}
+                                        <Autocomplete
+                                          options={country || []} // your country array
+                                          getOptionLabel={(option) =>
+                                            option.country_name || ""
+                                          } // show name
+                                          value={
+                                            country.find(
+                                              (c) =>
+                                                c.country_id ===
+                                                predata.loading_country
+                                            ) || null
+                                          }
+                                          onChange={(event, newValue) => {
+                                            hanldechange({
+                                              target: {
+                                                name: "loading_country",
+                                                value: newValue
+                                                  ? newValue.country_id
+                                                  : "",
+                                              },
+                                            });
+                                          }}
+                                          renderInput={(params) => (
+                                            <TextField
+                                              {...params}
+                                              placeholder="Select Country"
+                                              variant="outlined"
+                                            />
+                                          )}
+                                        />
                                         {/* <input type='text' className="form-control" value={predata.loading_country} onChange={hanldechange} name='loading_country' placeholder='client id' /> */}
                                       </div>
-                                      <div className="col-md-6">
+                                      <div className="col-md-6 autoComplete mb-3">
                                         <label htmlFor="" className="text-dark">
                                           Port of Exit Country
                                         </label>
-                                        <select
+                                        {/* <select
                                           name="discharge_country"
                                           value={predata.discharge_country}
                                           onChange={hanldechange}
@@ -678,7 +710,25 @@ const dataid = JSON.parse(localStorage.getItem("data"));
                                               </>
                                             );
                                           })}
-                                        </select>
+                                        </select> */}
+                                        <Autocomplete
+  options={country || []}
+  getOptionLabel={(option) => option.country_name || ""}
+  value={
+    country.find((c) => c.country_id === predata.discharge_country) || null
+  }
+  onChange={(event, newValue) => {
+    hanldechange({
+      target: {
+        name: "discharge_country",
+        value: newValue ? newValue.country_id : "",
+      },
+    });
+  }}
+  renderInput={(params) => (
+    <TextField {...params} placeholder="Select Discharge Country" variant="outlined" />
+  )}
+/>
                                         {/* <input type='text' className="form-control" value={predata.port_of_exit} onChange={hanldechange} name='port_of_exit' /> */}
                                       </div>
                                     </div>
@@ -786,8 +836,7 @@ const dataid = JSON.parse(localStorage.getItem("data"));
                                       </div>
                                     </div>
                                     <div className="row">
-                                   
-                                      <div className="col-md-12">
+                                      <div className="col-md-6">
                                         <label htmlFor="" className="text-dark">
                                           Goods Description
                                         </label>
@@ -800,8 +849,7 @@ const dataid = JSON.parse(localStorage.getItem("data"));
                                           placeholder="client id"
                                         />
                                       </div>
-                                    </div>
-                                    <div className="row">
+
                                       <div className="col-md-6">
                                         <label htmlFor="" className="text-dark">
                                           Total Weight
@@ -815,41 +863,60 @@ const dataid = JSON.parse(localStorage.getItem("data"));
                                         ></input>
                                       </div>
                                       <div className="col-md-6">
-
-                                         <label htmlFor="clearing_agent" className="form-label">
-                   Select Document
-                  </label>
-                          <select name="documentName" onChange={hanldechange}>
-                            <option value="">Select...</option>
-                            <option value="Customs Documents">Customs docs</option>
-                            <option value="Supporting Documents">Supporting docs</option>
-                            <option value="Invoice, Packing List">Invoice / Packing L</option>
-                            <option value="Product Literature">Product Literature</option>
-                            <option value="Letters of authority">LOA</option>
-                            <option value="Waybills">Freight Docs</option>
-                            <option value="Waybills">Shipping instruction</option>
-                            <option value="Supplier Invoices">Freight Invoices </option>
-                            <option value="AD_Quotations">Attach Quote</option>
-                          </select>
+                                        <label
+                                          htmlFor="clearing_agent"
+                                          className="form-label"
+                                        >
+                                          Select Document
+                                        </label>
+                                        <select
+                                          name="documentName"
+                                          onChange={hanldechange}
+                                        >
+                                          <option value="">Select...</option>
+                                          <option value="Customs Documents">
+                                            Customs docs
+                                          </option>
+                                          <option value="Supporting Documents">
+                                            Supporting docs
+                                          </option>
+                                          <option value="Invoice, Packing List">
+                                            Invoice / Packing L
+                                          </option>
+                                          <option value="Product Literature">
+                                            Product Literature
+                                          </option>
+                                          <option value="Letters of authority">
+                                            LOA
+                                          </option>
+                                          <option value="Waybills">
+                                            Freight Docs
+                                          </option>
+                                          <option value="Waybills">
+                                            Shipping instruction
+                                          </option>
+                                          <option value="Supplier Invoices">
+                                            Freight Invoices{" "}
+                                          </option>
+                                          <option value="AD_Quotations">
+                                            Attach Quote
+                                          </option>
+                                        </select>
                                       </div>
-                                      <div className="col-md-12">
-                                       <div className="col-6 mt-3 mainTool">
-                    <h5>Add Document</h5>
-                    <input
-                      type="file"
-                      name="licenses"
-                      className="w-100 rounded"
-                      onChange={handleFileChange2}
-                      multiple
-                    />
-                    <div className="toolSpace">
-                      <p className="toolText">Upload valid license documents required for this shipment or cargo.</p>
-                    </div>
-                   
-                  </div>
+                                      <div className="col-md-6">
+                                        <label className="form-label">
+                                          Add Document{" "}
+                                        </label>
+                                        <input
+                                          type="file"
+                                          name="licenses"
+                                          className="w-100 rounded"
+                                          onChange={handleFileChange2}
+                                          multiple
+                                        />
                                       </div>
                                     </div>
-                                    <div className="row">
+                                    <div className="row mt-3">
                                       <div className="col-md-6">
                                         <label htmlFor="" className="text-dark">
                                           Total Dimension
